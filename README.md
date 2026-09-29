@@ -27,6 +27,9 @@
 └─ docs/
    ├─ BLOG.md              # 博客正文草稿
    ├─ TEST_REPORT.md       # 测试报告
+   ├─ SUBMISSION_CHECKLIST.md # 提交前检查清单
+   ├─ 校园拾光-程序流程图.png # 关键流程图
+   ├─ 章玲博客.md / 吴雅晴博客.md # 两位成员的博客版本
    └─ screenshots/         # 运行效果截图
 ```
 
