@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校园拾光 - 校园失物招领</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">拾</span>
+      <div><strong>校园拾光</strong><small>让每一件遗失都有回音</small></div>
+    </div>
+    <nav class="main-nav" aria-label="主导航">
+      <button class="nav-btn active" data-page="home">信息大厅</button>
+      <button class="nav-btn" data-page="publish">发布信息</button>
+      <button class="nav-btn" data-page="mine">我的发布</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home-page" class="page active" aria-labelledby="home-title">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">FIND & RETURN</p>
+          <h1 id="home-title">校园里的失物信息，集中在这里</h1>
+          <p>浏览寻物与招领信息，按物品、地点快速搜索，减少群聊刷屏和重复询问。</p>
+        </div>
+        <div class="stats" aria-label="信息统计">
+          <div><strong id="stat-total">0</strong><span>全部信息</span></div>
+          <div><strong id="stat-active">0</strong><span>处理中</span></div>
+          <div><strong id="stat-done">0</strong><span>已解决</span></div>
+        </div>
+      </div>
+
+      <form id="filter-form" class="filter-panel" aria-label="信息筛选">
+        <label class="search-field"><span>关键词</span><input id="keyword" type="search" placeholder="搜索物品名称、地点或描述"></label>
+        <label><span>信息类型</span><select id="filter-type"><option value="all">全部</option><option value="lost">寻物</option><option value="found">招领</option></select></label>
+        <label><span>物品类别</span><select id="filter-category"><option value="all">全部类别</option><option>证件卡片</option><option>数码产品</option><option>钥匙</option><option>书本文具</option><option>生活用品</option><option>其他</option></select></label>
+        <label><span>处理状态</span><select id="filter-status"><option value="all">全部状态</option><option>寻找中</option><option>待认领</option><option>已找到</option><option>已归还</option></select></label>
+        <button class="btn primary" type="submit">搜索</button>
+        <button class="btn ghost" id="reset-filter" type="button">重置</button>
+      </form>
+
+      <div class="section-heading"><div><p class="eyebrow">LATEST POSTS</p><h2>最新失物招领</h2></div><span id="result-count" class="result-count"></span></div>
+      <div id="item-list" class="card-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">⌕</span><h3>没有找到匹配信息</h3><p>请调整关键词或筛选条件后重试。</p></div>
+    </section>
+
+    <section id="publish-page" class="page" aria-labelledby="publish-title">
+      <div class="form-layout">
+        <aside class="form-intro"><p class="eyebrow">PUBLISH</p><h1 id="publish-title">发布一条信息</h1><p>请尽量填写准确的时间、地点和特征。联系方式仅用于失物认领。</p><ul><li>物品特征清楚，方便双方核对</li><li>不要公开身份证号等敏感信息</li><li>找回或归还后及时更新状态</li></ul></aside>
+        <form id="publish-form" class="content-form" novalidate>
+          <div class="segmented" role="group" aria-label="发布类型"><label><input type="radio" name="type" value="lost" checked><span>我丢了东西</span></label><label><input type="radio" name="type" value="found"><span>我捡到东西</span></label></div>
+          <div class="two-col"><label>物品名称<input name="name" maxlength="30" required placeholder="如：蓝色校园卡"></label><label>物品类别<select name="category" required><option value="">请选择</option><option>证件卡片</option><option>数码产品</option><option>钥匙</option><option>书本文具</option><option>生活用品</option><option>其他</option></select></label></div>
+          <div class="two-col"><label>丢失 / 拾取地点<input name="location" maxlength="40" required placeholder="如：图书馆一楼"></label><label>时间<input name="time" type="datetime-local" required></label></div>
+          <label>详细描述<textarea name="description" rows="4" maxlength="200" required placeholder="颜色、品牌、外观特征等，至少 5 个字"></textarea><span class="field-tip">请勿填写证件号码、支付密码等敏感信息</span></label>
+          <div class="two-col"><label>联系人<input name="publisher" maxlength="20" required placeholder="姓名或昵称"></label><label>联系方式<input name="contact" maxlength="50" required placeholder="手机号、QQ 或微信号"></label></div>
+          <label class="upload-box">物品图片（可选）<input id="image-input" name="image" type="file" accept="image/*"><span>选择一张便于辨认的图片，不上传也可发布</span></label>
+          <div id="form-error" class="form-error" role="alert"></div>
+          <button class="btn primary wide" type="submit">确认发布</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="mine-page" class="page" aria-labelledby="mine-title">
+      <div class="section-heading"><div><p class="eyebrow">MY POSTS</p><h1 id="mine-title">我的发布</h1><p>使用本机演示账号管理发布记录，并及时更新处理状态。</p></div></div>
+      <div id="my-list" class="my-list"></div>
+      <div id="my-empty" class="empty-state" hidden><span aria-hidden="true">＋</span><h3>还没有发布记录</h3><p>前往“发布信息”创建第一条记录。</p></div>
+    </section>
+  </main>
+
+  <dialog id="detail-dialog" class="detail-dialog"><button class="dialog-close" aria-label="关闭详情">×</button><div id="detail-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/store.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
